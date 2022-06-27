@@ -1,36 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-const ListItem = ({imageUrl, title, author, onPress}) => {
-  return (
-    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
-    <View style={styles.leftContainer}>
-      {!!imageUrl && <Image
-        style={{ width: 100, height: 100 }}
-        source={{ uri: imageUrl }}
-      />}
-    </View>{/* {styles.leftContainer}> */}
-    <View style={styles.rightContainer}>
-      <View>
-        <Text numberOfLines={3} style={styles.text}>
-          {title}
-        </Text>
-        <Text style={styles.subText}>{author}</Text>
-      </View>
-    </View>{/* {styles.rightContainer}> */}
-  </TouchableOpacity>// {/* {styles.itemContainer}> */}
-  );
-}
-
-export default ListItem;
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   itemContainer: {
     height: 100,
     width: '100%',
@@ -40,10 +11,12 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   rightContainer: {
     flex: 1,
-    padding: 10,
+    padding: 16,
     justifyContent: 'space-between',
   },
   text: {
@@ -53,4 +26,28 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'gray',
   },
+  image: {
+    width: 95,
+    height: 95,
+  },
 });
+
+const ListItem = ({ imageUrl, title, author, onPress }) => {
+  return (
+    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
+      <View style={styles.leftContainer}>
+        {!!imageUrl && <Image style={ styles.image} source={{ uri: imageUrl }} />}
+      </View>
+      {/* {styles.leftContainer}> */}
+      <View style={styles.rightContainer}>
+          <Text numberOfLines={3} style={styles.text}>
+            {title}
+          </Text>
+          <Text style={styles.subText}>{author}</Text>
+        </View>
+      {/* {styles.rightContainer}> */}
+    </TouchableOpacity> // {/* {styles.itemContainer}> */}
+  );
+};
+
+export default ListItem;

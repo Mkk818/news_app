@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import ListItem from '../components/ListItem';
-import Loading from '../components/Loading';
 import Constants from 'expo-constants';
 import axios from 'axios';
+import ListItem from '../components/ListItem';
+import Loading from '../components/Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,9 +15,10 @@ const styles = StyleSheet.create({
 
 const URL = `https://newsapi.org/v2/top-headlines?country=jp&apiKey=${Constants.manifest.extra.newsApiKey}`;
 
-export default HomeScreen = ({ navigation }) => {
+export default function HomeScreen (props) {
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState([false]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     fetchArticles();
   }, []);
@@ -26,7 +27,7 @@ export default HomeScreen = ({ navigation }) => {
     setLoading(true);
     try {
       const response = await axios.get(URL);
-      console.log(response);
+      // console.log(response);
       setArticles(response.data.articles);
     } catch (error) {
       console.error(error);
@@ -36,6 +37,7 @@ export default HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {loading && <Loading />}
       <FlatList
         data={articles}
         renderItem={({ item }) => (
@@ -43,12 +45,13 @@ export default HomeScreen = ({ navigation }) => {
             imageUrl={item.urlToImage}
             title={item.title}
             author={item.author}
-            onPress={() => navigation.navigate('Article', { article: item })}
+            onPress={() =>
+              props.navigation.navigate('Article', { article: item })
+            }
           />
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-      {loading && <Loading />}
     </SafeAreaView> // {styles.container}>
   );
-};
+}

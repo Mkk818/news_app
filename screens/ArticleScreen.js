@@ -14,15 +14,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArticleScreen = ({ route }) => {
+export default function ArticleScreen (props) {
+  const {route} = props;
   const { article } = route.params;
 
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { clips } = user;
+  const dispatch = useDispatch();
+  // const { clips } = user;
 
   const isClipped = () => {
-    return clips.some((clip) => clip.url === article.url);
+    return user.clips.some((clip) => clip.url === article.url);
   };
 
   const toggleClip = () => {

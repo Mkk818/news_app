@@ -20,7 +20,9 @@ const HomeStack = () => {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Article" component={ArticleScreen} />
+      <Stack.Screen
+       name="Article" 
+      component={ArticleScreen} />
     </Stack.Navigator>
   );
 };
@@ -28,7 +30,8 @@ const HomeStack = () => {
 const ClipStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Clip" component={ClipScreen} />
+      <Stack.Screen name="Clip" 
+      component={ClipScreen} />
       <Stack.Screen name="Article" component={ArticleScreen} />
     </Stack.Navigator>
   );
@@ -38,17 +41,13 @@ const screenOption = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
 
-    if (route.name === 'Home') {
-      iconName = 'Home';
-    } else if (route.name === 'Clip') {
-    //   iconName = 'bookmark';
-    // switch (route.name) {
-    //   case 'Home':
-    //     iconName = 'home';
-    //     break;
-    //   case 'Clip':
-    //     iconName = 'bookmark';
-    //     break;
+    switch (route.name) {
+      case 'Home':
+        iconName = 'home';
+        break;
+      case 'Clip':
+        iconName = 'bookmark';
+        break;
     }
     return <FontAwesome name={iconName} size={size} color={color} />;
   },
@@ -57,7 +56,9 @@ const screenOption = ({ route }) => ({
 export default AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOption}>
+      <Tab.Navigator
+       screenOptions={screenOption}
+       >
         <Tab.Screen name="ホーム" component={HomeStack} />
         <Tab.Screen name="お気に入り" component={ClipStack} />
       </Tab.Navigator>
